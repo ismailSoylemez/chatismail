@@ -1,0 +1,17 @@
+{
+  "name": "chatismail",
+  "description": "",
+  "main": "",
+  "authors": [
+    "İsmail Söylemez"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chat",
+    "nodejs"
+  ],
+  "homepage": "",
+  "dependencies": {
+    "angular": "^1.7.8"
+  }
+}
