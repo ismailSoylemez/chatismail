@@ -5,8 +5,28 @@ const socketApi = {
     io
 };
 
+ /*
+    Redis Adapter
+ */
+const redisAdapter = require('socket.io-redis');
+io.adapter(redisAdapter({
+        host: process.env.REDIS_URI,
+        port: process.env.REDIS_PORT
+}));
+
 io.on('connection', (socket) => {
     console.log('a user logged in');
+
+    socket.broadcast.emit('hello');
 });
 
 module.exports = socketApi;
+
+/*
+load balancer
+
+1.uygu.serv
+2.uygu.serv kullanıcı
+3.uygu.serv
+
+*/
