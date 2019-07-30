@@ -6,6 +6,9 @@ var logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 
+//redis
+const redisStore = require('./helpers/redisStore');
+
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -38,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 
 //express-session
 app.use(session({
+  store: redisStore, //redis
   secret: process.env.GOOGLE_LOGIN_SECRET_KEY,
   resave: false,
   saveUninitialized: true,
