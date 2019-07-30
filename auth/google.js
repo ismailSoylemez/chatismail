@@ -15,7 +15,6 @@ passport.use(
     },
     ((accessToken,refreshToken,profile,done) => {
         const data = profile._json;
-        console.log(data);
 
     //mongodb ye kaydetmek gerekiyor ama öncesinde bu id daha önce var mı kontrol et
     User.findOrCreate({

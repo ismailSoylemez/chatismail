@@ -3,7 +3,8 @@ var router = express.Router();
 
 /*get chat homepage*/
 router.get('/', function(req, res, next) {
-  res.render('chat'); //chat pug ı render edecek
+  console.log(req.user);
+  res.render('chat' , {user: req.user}); //chat pug ı render edecek
 });
 
 module.exports = router;

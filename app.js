@@ -18,7 +18,11 @@ var chat = require('./routes/chat');
 
 var app = express();
 
+//helpers
 const db = require('./helpers/db')();
+
+//middlewares
+const isAuthenticated = require('./middleware/isAuthenticated');
 
 
 // view engine setup
@@ -37,7 +41,7 @@ app.use(session({
   secret: process.env.GOOGLE_LOGIN_SECRET_KEY,
   resave: false,
   saveUninitialized: true,
-  cookie: {secure: true , maxAge: 14*24*3600000}
+  cookie: {maxAge: 14*24*3600000}
 }));
 
 //passport js
@@ -46,7 +50,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth', auth);
-app.use('/chat', chat);
+app.use('/chat',isAuthenticated, chat); //login değilse chat route u gösterilmeyecek
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
