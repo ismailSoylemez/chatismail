@@ -4,6 +4,8 @@ app.controller('chatController', ['$scope', ($scope) => {
     $scope.onlineList = [];
     $scope.roomList = [];
     $scope.activeTab = 2;
+    $scope.chatClicked = false;
+    $scope.chatName = "";
 
     /*
     Socket event handling
@@ -21,8 +23,14 @@ app.controller('chatController', ['$scope', ($scope) => {
     //tarafında karşıladık
     socket.on('roomList' , rooms => {
         $scope.roomList = rooms;
-        $scope.apply;
+        $scope.$apply();
     });
+
+
+    $scope.switchRoom = room => {
+        $scope.chatName = room.roomName;
+        $scope.chatClicked = true;
+    };
 
 
 
