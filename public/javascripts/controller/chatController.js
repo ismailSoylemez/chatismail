@@ -33,11 +33,18 @@ app.controller('chatController', ['$scope', ($scope) => {
 
     //yeni oda oluşturuyoruz
     $scope.newRoom = () => {
-      let randomName = Math.random().toString(36).substring(7);
+      //let randomName = Math.random().toString(36).substring(7);
       //sunucuya emit yapacak
       //sunucu tarafında(socketApi) yakalayıp redise yollayacak
       //rediste oda açılacak
-      socket.emit('newRoom',randomName);
+
+     let roomName = window.prompt("Enter room name");
+     if(roomName !== '' && roomName !== null) {
+         socket.emit('newRoom' ,roomName);
+        }
+
+
+      //socket.emit('newRoom',randomName);
     };
 
 

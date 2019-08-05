@@ -31,19 +31,14 @@ io.on('connection', (socket) => {
     console.log('a user logged in with name ' + socket.request.user.name);
     //socket.broadcast.emit('hello');
 
+
+    //kullanıcı oluşturuluyor
     Users.upsert(socket.id, socket.request.user);
-
-
-    //odaları listeleme
-    Rooms.list(rooms => {
-        io.emit('roomList',rooms);
-    });
 
     //kullanıcıları listeleme
     Users.list(users => {
         io.emit('onlineList',users);
     });
-
 
     //yeni oda kurma
     socket.on('newRoom',roomName => {
@@ -51,8 +46,13 @@ io.on('connection', (socket) => {
          Rooms.list(rooms => {
             io.emit('roomList',rooms);
          });
-
     });
+
+    //odaları listeleme
+    Rooms.list(rooms => {
+        io.emit('roomList',rooms);
+    });
+
 
     socket.on('disconnect', () => {
         Users.remove(socket.request.user.googleID);
