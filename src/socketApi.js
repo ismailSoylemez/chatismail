@@ -9,6 +9,7 @@ const socketApi = {
 
 //libs
 const Users = require('../src/lib/Users');
+const Rooms = require('../src/lib/Rooms');
 
 
 
@@ -34,14 +35,16 @@ io.on('connection', (socket) => {
 
 
     Users.list(users => {
-
         io.emit('onlineList',users);
     });
 
 
+    socket.on('newRoom',roomName => {
+         Rooms.upsert(roomName);
+    });
+
     socket.on('disconnect', () => {
         Users.remove(socket.request.user.googleID);
-
         Users.list(users => {
             io.emit('onlineList',users);
         });
