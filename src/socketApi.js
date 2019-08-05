@@ -34,12 +34,18 @@ io.on('connection', (socket) => {
 
 
     Users.list(users => {
-        console.log(users);
+
+        io.emit('onlineList',users);
     });
 
 
     socket.on('disconnect', () => {
         Users.remove(socket.request.user.googleID);
+
+        Users.list(users => {
+            io.emit('onlineList',users);
+        });
+
     });
 
 });
