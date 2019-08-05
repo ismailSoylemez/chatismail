@@ -26,14 +26,23 @@ io.adapter(redisAdapter({
 }));
 
 io.on('connection', (socket) => {
-
     //her soket isteğinde hangi kullanıcı istek attıysa onun ismi yazıyor
     console.log('a user logged in with name ' + socket.request.user.name);
     //socket.broadcast.emit('hello');
 
     Users.upsert(socket.id, socket.request.user);
 
+    socket.on('disconnect', () => {
+        Users.remove(socket.request.user.googleID);
+    });
+
 });
+
+
+
+
+
+
 
 module.exports = socketApi;
 

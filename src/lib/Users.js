@@ -28,3 +28,16 @@ Users.prototype.upsert = function (connectionId,meta) {
       }
   )
 };
+
+
+Users.prototype.remove = function (googleID) {
+    this.client.hdel(
+        'online',
+        googleID,
+        err => {
+            if(err){
+                console.log(err);
+            }
+        }
+    );
+};
