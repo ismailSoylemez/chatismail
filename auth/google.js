@@ -1,7 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 
-const findOrCreate = require('mongoose-find-or-create')
+const findOrCreate = require('mongoose-find-or-create');
 
 
 //models

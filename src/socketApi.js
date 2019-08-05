@@ -1,9 +1,14 @@
 const socketio = require('socket.io');
+const socketAuthorization = require('../middleware/socketAuthorization');
 const io = socketio();
 
 const socketApi = {
     io
 };
+
+//socket authorization
+io.use(socketAuthorization);
+
 
  /*
     Redis Adapter
@@ -15,8 +20,8 @@ io.adapter(redisAdapter({
 }));
 
 io.on('connection', (socket) => {
-    console.log('a user logged in');
-
+    //her soket isteğinde hangi kullanıcı istek attıysa onun ismi yazıyor
+    console.log('a user logged in with name ' + socket.request.user.name);
     socket.broadcast.emit('hello');
 });
 
