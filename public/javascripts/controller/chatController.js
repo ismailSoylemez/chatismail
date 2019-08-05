@@ -1,7 +1,13 @@
 app.controller('chatController', ['$scope', ($scope) => {
 
+    /*Angular variables*/
     $scope.onlineList = [];
+    $scope.roomList = [];
     $scope.activeTab = 2;
+
+    /*
+    Socket event handling
+     */
 
 
     const socket = io.connect("http://localhost:3000");
@@ -11,20 +17,27 @@ app.controller('chatController', ['$scope', ($scope) => {
         $scope.$apply();
     });
 
+    //sunucudan (socketApi.js) den gelen odaları client
+    //tarafında karşıladık
+    socket.on('roomList' , rooms => {
+        $scope.roomList = rooms;
+        $scope.apply;
+    });
+
 
 
     $scope.changeTab = tab => {
         $scope.activeTab = tab;
     };
 
+
+    //yeni oda oluşturuyoruz
     $scope.newRoom = () => {
       let randomName = Math.random().toString(36).substring(7);
       //sunucuya emit yapacak
       //sunucu tarafında(socketApi) yakalayıp redise yollayacak
       //rediste oda açılacak
       socket.emit('newRoom',randomName);
-
-
     };
 
 

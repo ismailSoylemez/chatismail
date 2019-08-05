@@ -36,8 +36,7 @@ io.on('connection', (socket) => {
 
     //odaları listeleme
     Rooms.list(rooms => {
-
-
+        io.emit('roomList',rooms);
     });
 
     //kullanıcıları listeleme
@@ -49,6 +48,10 @@ io.on('connection', (socket) => {
     //yeni oda kurma
     socket.on('newRoom',roomName => {
          Rooms.upsert(roomName);
+         Rooms.list(rooms => {
+            io.emit('roomList',rooms);
+         });
+
     });
 
     socket.on('disconnect', () => {
