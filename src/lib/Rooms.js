@@ -38,21 +38,23 @@ Users.prototype.remove = function (googleID) {
         }
     );
 };
+*/
 
 
-Users.prototype.list = function (callback) {
-    let active = [];
-    this.client.hgetall('online' , function (err,users) {
+//Room Listeleme
+Rooms.prototype.list = function (callback) {
+    let roomList = [];
+    this.client.hgetall('rooms' , function (err,rooms) {
       if(err) {
           console.log(err);
           return callback([]);
       }
 
-      for(let user in users) {
-          active.push(JSON.parse(users[user]));
+      for(let room in rooms) {
+          roomList.push(JSON.parse(rooms[room]));
       }
 
-      return callback(active);
+      return callback(roomList);
 
     })
-};*/
+};

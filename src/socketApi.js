@@ -34,11 +34,19 @@ io.on('connection', (socket) => {
     Users.upsert(socket.id, socket.request.user);
 
 
+    //odaları listeleme
+    Rooms.list(rooms => {
+
+
+    });
+
+    //kullanıcıları listeleme
     Users.list(users => {
         io.emit('onlineList',users);
     });
 
 
+    //yeni oda kurma
     socket.on('newRoom',roomName => {
          Rooms.upsert(roomName);
     });
