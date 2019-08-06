@@ -40,6 +40,12 @@ io.on('connection', (socket) => {
         io.emit('onlineList',users);
     });
 
+
+    //gönderilen roomId ve message karşılanacak
+    socket.on('newMessage' ,data => {
+        console.log(data);
+    });
+
     //yeni oda kurma
     socket.on('newRoom',roomName => {
          Rooms.upsert(roomName);
