@@ -13,7 +13,7 @@ module.exports = new Users();
 Users.prototype.upsert = function (connectionId,meta) {
   this.client.hset(
       'online',
-      meta.googleID,
+      meta._id,
       JSON.stringify({
           connectionId,
           meta,
@@ -28,10 +28,10 @@ Users.prototype.upsert = function (connectionId,meta) {
 };
 
 //silme işlemi
-Users.prototype.remove = function (googleID) {
+Users.prototype.remove = function (_id) {
     this.client.hdel(
         'online',
-        googleID,
+        _id,
         err => {
             if(err){
                 console.log(err);
