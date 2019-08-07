@@ -18,6 +18,7 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var auth = require('./routes/auth');
 var chat = require('./routes/chat');
+var messages = require('./routes/messages');
 
 var app = express();
 
@@ -55,6 +56,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/auth', auth);
 app.use('/chat',isAuthenticated, chat); //login değilse chat route u gösterilmeyecek
+app.use('/messages', isAuthenticated, messages);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
