@@ -12,11 +12,12 @@ function Messages () {
 module.exports = new Messages();
 
 //rediste Mesaj oluştur
-Messages.prototype.upsert = function ({roomId,message,username,surname}) {
+Messages.prototype.upsert = function ({roomId,message, userId ,username,surname}) {
   this.client.hset(
       'messages:'+ roomId,
       shortid.generate(),
       JSON.stringify({
+          userId,
           username,
           surname,
           message,

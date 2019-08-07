@@ -10,4 +10,9 @@ router.get('/', (req, res, next)=> {
     res.redirect('/chat');
 });
 
+
+router.get('/getUser', (req, res, next)=> {
+    res.json(req.user);
+});
+
 module.exports = router;

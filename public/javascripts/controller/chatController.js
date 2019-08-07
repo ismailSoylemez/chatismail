@@ -1,4 +1,19 @@
-app.controller('chatController', ['$scope', 'chatFactory', ($scope , chatFactory) => {
+app.controller('chatController', ['$scope', 'chatFactory', 'userFactory' , ($scope , chatFactory ,userFactory) => {
+
+
+    /*
+    *  initialization
+    */
+
+    //hangi kullanıcı giriş yaparsa onun verisine de ulaşabilirim
+    function init () {
+        userFactory.getUser().then(user => {
+            $scope.user = user;
+        })
+    }
+
+    init();
+
 
     /*Angular variables*/
     $scope.onlineList = [];
@@ -9,6 +24,8 @@ app.controller('chatController', ['$scope', 'chatFactory', ($scope , chatFactory
     $scope.message =  "";
     $scope.roomId = "";
     $scope.messages = [];
+
+    $scope.user = { };
 
     /*
     Socket event handling
@@ -40,6 +57,8 @@ app.controller('chatController', ['$scope', 'chatFactory', ($scope , chatFactory
            roomId: $scope.roomId,
         });
         $scope.message = '';
+
+        console.log($scope.user);
     };
 
 
