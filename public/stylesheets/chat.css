@@ -421,6 +421,13 @@ ul,li{
     background: #eceff1;
 }
 
+
+.loading{
+    text-align: center;
+    font-size: 16px;
+    padding: 30px 30px;
+}
+
 .bottom{
     text-align: center;
     padding-top: 16px

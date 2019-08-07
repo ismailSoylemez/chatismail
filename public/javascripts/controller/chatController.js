@@ -20,6 +20,7 @@ app.controller('chatController', ['$scope', 'chatFactory', 'userFactory' , ($sco
     $scope.roomList = [];
     $scope.activeTab = 2;
     $scope.chatClicked = false;
+    $scope.loadingMessages = false;
     $scope.chatName = "";
     $scope.message =  "";
     $scope.roomId = "";
@@ -66,11 +67,14 @@ app.controller('chatController', ['$scope', 'chatFactory', 'userFactory' , ($sco
         $scope.chatName = room.name;
         $scope.roomId = room.id;
         $scope.chatClicked = true;
+        $scope.loadingMessages = true;
 
         chatFactory.getMessages(room.id).then(data => {
             //console.log(data);
             $scope.messages[room.id] = data;
-            console.log($scope.messages);
+            //console.log($scope.messages);
+            $scope.loadingMessages = false;
+
         });
     };
 
