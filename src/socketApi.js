@@ -10,6 +10,7 @@ const socketApi = {
 //libs
 const Users = require('../src/lib/Users');
 const Rooms = require('../src/lib/Rooms');
+const Messages = require('../src/lib/Messages');
 
 
 
@@ -44,6 +45,12 @@ io.on('connection', (socket) => {
     //gönderilen roomId ve message karşılanacak
     socket.on('newMessage' ,data => {
         console.log(data);
+        Messages.upsert({
+            ...data,
+            username: socket.request.user.name,
+            surname: socket.request.user.surname
+        });
+
     });
 
     //yeni oda kurma
