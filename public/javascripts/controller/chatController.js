@@ -8,6 +8,7 @@ app.controller('chatController', ['$scope', 'chatFactory', ($scope , chatFactory
     $scope.chatName = "";
     $scope.message =  "";
     $scope.roomId = "";
+    $scope.messages = [];
 
     /*
     Socket event handling
@@ -48,7 +49,9 @@ app.controller('chatController', ['$scope', 'chatFactory', ($scope , chatFactory
         $scope.chatClicked = true;
 
         chatFactory.getMessages(room.id).then(data => {
-            console.log(data);
+            //console.log(data);
+            $scope.messages[room.id] = data;
+            console.log($scope.messages);
         });
     };
 
