@@ -50,14 +50,28 @@ app.controller('chatController', ['$scope', 'chatFactory', 'userFactory' , ($sco
     //send butonuna basıldığında yapılacaklar
     //çekilen 2 data server a gönderilmeli
     $scope.newMessage = () => {
-        console.log($scope.message);
-        console.log($scope.roomId);
-        socket.emit('newMessage', {
-            //socketApide bunlar karşılanacak
-           message: $scope.message,
-           roomId: $scope.roomId,
-        });
-        $scope.message = '';
+
+        if($scope.message.trim() !== '') {
+            //console.log($scope.message);
+            //console.log($scope.roomId);
+            socket.emit('newMessage', {
+                //socketApide bunlar karşılanacak
+                message: $scope.message,
+                roomId: $scope.roomId,
+            });
+
+
+            $scope.messages[$scope.roomId].push({
+                userId: $scope.user._id,
+                username: $scope.user.name,
+                surname: $scope.user.surname,
+                message: $scope.message
+            });
+
+
+
+            $scope.message = '';
+        }
 
         console.log($scope.user);
     };
