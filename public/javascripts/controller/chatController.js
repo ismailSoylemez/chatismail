@@ -47,6 +47,24 @@ app.controller('chatController', ['$scope', 'chatFactory', 'userFactory' , ($sco
         $scope.$apply();
     });
 
+
+
+    //serverdan gelen broadcast mesaj datasını karşılıyoruz
+    socket.on('receiveMessage' , data => {
+        //console.log(message);
+
+        $scope.messages[data.roomId].push({
+            userId: data.userId,
+            username: data.username,
+            surname: data.surname,
+            message: data.message
+        });
+        $scope.$apply();
+
+
+
+    });
+
     //send butonuna basıldığında yapılacaklar
     //çekilen 2 data server a gönderilmeli
     $scope.newMessage = () => {
@@ -73,7 +91,7 @@ app.controller('chatController', ['$scope', 'chatFactory', 'userFactory' , ($sco
             $scope.message = '';
         }
 
-        console.log($scope.user);
+        //console.log($scope.user);
     };
 
 

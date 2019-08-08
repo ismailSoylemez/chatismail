@@ -44,13 +44,19 @@ io.on('connection', (socket) => {
 
     //gönderilen roomId ve message karşılanacak
     socket.on('newMessage' ,data => {
-        console.log(data);
-        Messages.upsert({
+        const messageData = {
             ...data,
             userId: socket.request.user._id,
             username: socket.request.user.name,
             surname: socket.request.user.surname
-        });
+        };
+
+        //console da gönderilen mesajı yazar
+        //console.log(data);
+        Messages.upsert(messageData);
+
+        //tüm kullanıcılara broadcast yapacak ve bunu controller da karşılayacağız
+        socket.broadcast.emit('receiveMessage',messageData);
 
     });
 
