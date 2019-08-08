@@ -67,15 +67,25 @@ app.controller('chatController', ['$scope', 'chatFactory', 'userFactory' , ($sco
         $scope.chatName = room.name;
         $scope.roomId = room.id;
         $scope.chatClicked = true;
-        $scope.loadingMessages = true;
 
-        chatFactory.getMessages(room.id).then(data => {
-            //console.log(data);
-            $scope.messages[room.id] = data;
-            //console.log($scope.messages);
-            $scope.loadingMessages = false;
+        //odaya her tıkladığımda mesajlar için backende her defasında
+        //istek atmasın diye
+        //yani odaya 1 kez tıkladığında mesajları çekecek ve
+        //tekrar tıkladığında bir kez daha çekmesine gerek kalmayacak
+        if (!$scope.messages.hasOwnProperty(room.id)) {
+            $scope.loadingMessages = true;
 
-        });
+            console.log('servise bağlanıyor');
+
+            chatFactory.getMessages(room.id).then(data => {
+                //console.log(data);
+                $scope.messages[room.id] = data;
+                //console.log($scope.messages);
+                $scope.loadingMessages = false;
+            });
+        }
+
+
     };
 
 
